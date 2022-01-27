@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="zh-CN">
+
+<head>
+    <title>漫化头像</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <input type="file" />
+    <div class="images">
+        <img class="preview" />
+        <img class="result" />
+    </div>
+    <h4>The API is provided by King's BCE Image Process</h4>
+    <style>
+        .images {
+            display: flex;
+            margin-top: 16px;
+            width: 100%;
+        }
+
+        .images img {
+            width: 50%;
+        }
+    </style>
+    <script>
+        $('[type=file]').on('change', function () {
+            var reader = new FileReader();
+            reader.onloadend = function (e) {
+                let image = e.target.result;
+                $('.preview').attr({ src: image });
+                $('.result').attr({ src: './loading.gif' });
+                $.post({
+                    url: './bce.cjs',
+                    data: JSON.stringify({ image: image }),
+                    dataType: 'json',
+                    success: function (body) {
+                        $('.result').attr({
+                            src: 'data:image/png;base64,' + body.data.image
+                        });
+                    }
+                });
+            }
+            reader.readAsDataURL(this.files[0]);
+        });
+    </script>
+</body>
+
+</html>

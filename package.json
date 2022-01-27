@@ -1,0 +1,13 @@
+{
+    "name": "scf-website",
+    "description": "使用SCF托管网站",
+    "homepage": "https://github.com/rehiy/webox-node",
+    "version": "1.0.0",
+    "dependencies": {
+        "axios": "^0.25.0",
+        "webox-node": "^3.3.10"
+    },
+    "scripts": {
+        "start": "npx webox 0.0.0.0:9000"
+    }
+}
